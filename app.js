@@ -20,6 +20,7 @@ function shuffle(array) {
 
 const board = document.querySelector("#board");
 let deck = [];
+let turned = [];
 
 function buildBoard() {
   deck = shuffle([...fruits, ...fruits]);
@@ -31,7 +32,18 @@ function buildBoard() {
     card.setAttribute("aria-label", `Card ${i + 1}, face down`);
     card.dataset.index = i;
     board.appendChild(card);
-  });
+});
 }
+
+board.addEventListener("click", (event) => {
+  const card = event.target;
+  if (!card.classList.contains("card")) return;
+  if (card.classList.contains("flipped")) return;
+    const fruit = deck[card.dataset.index];
+  card.textContent = fruit.symbol;
+  card.classList.add("flipped");
+  card.setAttribute("aria-label", `Card ${Number(card.dataset.index) + 1}, ${fruit.name}`);
+  turned.push(card);
+});
 
 buildBoard();
