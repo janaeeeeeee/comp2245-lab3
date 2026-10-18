@@ -26,6 +26,7 @@ const movesDisplay = document.querySelector("#moves");
 let moves = 0;
 let waiting = false;
 let pairsFound = 0;
+let timerId = null;
 
 function buildBoard() {
   deck = shuffle([...fruits, ...fruits]);
@@ -71,7 +72,7 @@ board.addEventListener("click", (event) => {
     } else {
       status.textContent = "Not a pair. Try again.";
       waiting = true;
-      setTimeout(() => {
+            timerId = setTimeout(() => {
         [first, second].forEach((c) => {
           c.textContent = "";
           c.classList.remove("flipped");
@@ -83,5 +84,16 @@ board.addEventListener("click", (event) => {
     }
   }
 });
-
+document.querySelector("#new-game").addEventListener("click", () => {
+  board.replaceChildren();
+  clearTimeout(timerId);
+  waiting = false;
+  turned = [];
+  pairsFound = 0;
+  status.textContent = "Turn over two cards to find a matching pair.";
+  status.classList.remove("you-won");
+  buildBoard();
+  moves = 0;
+  movesDisplay.textContent = moves;
+});
 buildBoard();
