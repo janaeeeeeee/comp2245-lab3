@@ -25,6 +25,7 @@ const status = document.querySelector("#status");
 const movesDisplay = document.querySelector("#moves");
 let moves = 0;
 let waiting = false;
+let pairsFound = 0;
 
 function buildBoard() {
   deck = shuffle([...fruits, ...fruits]);
@@ -61,6 +62,11 @@ board.addEventListener("click", (event) => {
       first.disabled = true;
       second.disabled = true;
       status.textContent = "That's a pair!";
+      pairsFound++;
+      if (pairsFound === 8) {
+        status.textContent = `You found all the pairs in ${moves} moves!`;
+        status.classList.add("you won");
+      }
       turned = [];
     } else {
       status.textContent = "Not a pair. Try again.";
