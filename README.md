@@ -2,3 +2,5 @@
 
 This is Lab 3 for Janae' Hill.
 
+browsers tested++: google and Microsoft edge 
+
